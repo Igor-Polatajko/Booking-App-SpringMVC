@@ -1,4 +1,4 @@
-package domains;
+package app.domains;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 

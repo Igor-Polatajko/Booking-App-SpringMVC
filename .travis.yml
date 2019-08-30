@@ -1,1 +1,7 @@
 language: java
+
+services:
+  - mysql
+
+before_install:
+  - mysql -u root --password="" < init_db.sql

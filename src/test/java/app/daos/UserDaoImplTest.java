@@ -25,7 +25,6 @@ public class UserDaoImplTest extends BaseDaoTest {
     void setup() {
         // Initializing test user
         user = new User();
-        user.setId("userId");
         user.setEmail("example@gmail.com");
         user.setPassword("12345");
         user.setSurname("Johnson");
@@ -52,9 +51,18 @@ public class UserDaoImplTest extends BaseDaoTest {
         newUser.setName("John");
         newUser.setPhoneNumber("0626552521415");
 
-        // Should return reference to that same object
-        assertEquals(newUser, userDao.create(newUser));
+        // Testing
+        User resultUser = userDao.create(newUser);
+
+        // Asserting results
+        assertSame(newUser, resultUser);
         assertNotNull(newUser.getId());
+
+        User userFromDB = userDao.findById(resultUser.getId());
+        // Encrypting user password
+        resultUser.setPassword(encryptionUtil.encode(resultUser.getPassword()));
+        assertThat(resultUser).isEqualToIgnoringGivenFields(userFromDB,
+                "createdDate",  "updatedDate");
     }
 
     @Test
@@ -73,7 +81,7 @@ public class UserDaoImplTest extends BaseDaoTest {
     }
 
     @Test
-    void testFind_successFlow() {
+    void testFindById_successFlow() {
         // Getting user
         User resultUser = userDao.findById(user.getId());
 
@@ -84,7 +92,7 @@ public class UserDaoImplTest extends BaseDaoTest {
     }
 
     @Test
-    void testFindUser_invalidId() {
+    void testFindById_invalidId() {
         assertThrows(NotFoundException.class, () -> userDao.findById("randomString"));
     }
 
@@ -96,6 +104,11 @@ public class UserDaoImplTest extends BaseDaoTest {
         user.setPassword(encryptionUtil.encode(user.getPassword()));
 
         assertThat(user).isEqualToIgnoringGivenFields(resultUser, "id", "createdDate", "updatedDate");
+    }
+
+    @Test
+    void testFindByEmail_incorrectEmail() {
+        assertThrows(NotFoundException.class, () -> userDao.findByEmail("not_existing_email@gmail.com"));
     }
 
     @Test
@@ -135,17 +148,13 @@ public class UserDaoImplTest extends BaseDaoTest {
     void testDelete_successFlow() {
         // Deleting user from db
         assertTrue(userDao.delete(user.getId()));
+
+        assertThrows(NotFoundException.class, () -> userDao.findById(user.getId()));
     }
 
     @Test
     void testDelete_invalidId() {
         // Deleting not existing user from db
         assertThrows(NotFoundException.class, () -> userDao.delete("randomString"));
-    }
-
-
-    @Test
-    void testFindByEmail_incorrectEmail() {
-        assertThrows(NotFoundException.class, () -> userDao.findByEmail("not_existing_email@gmail.com"));
     }
 }

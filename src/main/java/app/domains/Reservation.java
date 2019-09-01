@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Reservation {
     private String id;
@@ -72,5 +73,24 @@ public class Reservation {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Reservation that = (Reservation) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(propertyId, that.propertyId) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(checkInDate, that.checkInDate) &&
+                Objects.equals(checkOutDate, that.checkOutDate) &&
+                Objects.equals(createdDate, that.createdDate) &&
+                Objects.equals(updatedDate, that.updatedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, propertyId, userId, checkInDate, checkOutDate, createdDate, updatedDate);
     }
 }

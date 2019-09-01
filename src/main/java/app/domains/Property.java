@@ -3,6 +3,7 @@ package app.domains;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class Property {
     private String id;
@@ -69,5 +70,24 @@ public class Property {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Property property = (Property) o;
+        return Objects.equals(id, property.id) &&
+                Objects.equals(ownerId, property.ownerId) &&
+                Objects.equals(location, property.location) &&
+                Objects.equals(description, property.description) &&
+                Objects.equals(name, property.name) &&
+                Objects.equals(createdDate, property.createdDate) &&
+                Objects.equals(updatedDate, property.updatedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, ownerId, location, description, name, createdDate, updatedDate);
     }
 }

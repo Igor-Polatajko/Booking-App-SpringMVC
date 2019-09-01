@@ -4,7 +4,6 @@ import app.domains.UserRole;
 import app.exceptions.DbException;
 import app.exceptions.NotFoundException;
 import app.mappers.UserRoleMapper;
-import app.utils.EncryptionUtil;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -19,15 +18,12 @@ public class UserRoleDaoImpl implements UserRoleDao {
 
     private JdbcTemplate jdbcTemplate;
     private UserRoleMapper mapper;
-    private EncryptionUtil encryptionUtil;
     private Logger logger;
 
     @Autowired
-    public UserRoleDaoImpl(JdbcTemplate jdbcTemplate, UserRoleMapper mapper, EncryptionUtil encryptionUtil,
-                           Logger logger) {
+    public UserRoleDaoImpl(JdbcTemplate jdbcTemplate, UserRoleMapper mapper, Logger logger) {
         this.jdbcTemplate = jdbcTemplate;
         this.mapper = mapper;
-        this.encryptionUtil = encryptionUtil;
         this.logger = logger;
     }
 

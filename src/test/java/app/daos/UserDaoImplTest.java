@@ -62,7 +62,7 @@ public class UserDaoImplTest extends BaseDaoTest {
         // Encrypting user password
         resultUser.setPassword(encryptionUtil.encode(resultUser.getPassword()));
         assertThat(resultUser).isEqualToIgnoringGivenFields(userFromDB,
-                "createdDate",  "updatedDate");
+                "createdDate", "updatedDate");
     }
 
     @Test
@@ -121,9 +121,15 @@ public class UserDaoImplTest extends BaseDaoTest {
         updatedUser.setName("Den");
         updatedUser.setPhoneNumber("0333333333");
         updatedUser.setCreatedDate(user.getCreatedDate());
-        userDao.update(updatedUser);
-        User resultUser = userDao.findById(user.getId());
-        assertThat(updatedUser).isEqualToIgnoringGivenFields(resultUser,
+
+        // Testing
+        User resultUser = userDao.update(updatedUser);
+
+        // Asserting results
+        assertSame(updatedUser, resultUser);
+
+        User userFromDB = userDao.findById(user.getId());
+        assertThat(resultUser).isEqualToIgnoringGivenFields(userFromDB,
                 "createdDate", "updatedDate", "password");
     }
 

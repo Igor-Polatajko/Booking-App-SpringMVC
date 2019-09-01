@@ -50,11 +50,11 @@ public class UserRoleDaoImplTest extends BaseDaoTest {
 
         UserRole userRoleFromDB = userRoleDao.findById(userRole.getId());
         assertThat(resultUserRole).isEqualToIgnoringGivenFields(userRoleFromDB,
-                "createdDate",  "updatedDate");
+                "createdDate", "updatedDate");
     }
 
     @Test
-    void testCreate_duplicateName(){
+    void testCreate_duplicateName() {
         UserRole newUserRole = new UserRole();
         newUserRole.setName(userRole.getName());
 
@@ -62,25 +62,25 @@ public class UserRoleDaoImplTest extends BaseDaoTest {
     }
 
     @Test
-    void testCreate_omittedNotNullFields(){
+    void testCreate_omittedNotNullFields() {
         UserRole emptyUserRole = new UserRole();
         assertThrows(DbException.class, () -> userRoleDao.create(emptyUserRole));
     }
 
     @Test
-    void testFindById_successFlow(){
+    void testFindById_successFlow() {
         UserRole resultUserRole = userRoleDao.findById(userRole.getId());
         assertThat(resultUserRole).isEqualToIgnoringGivenFields(userRole,
-                "createdDate",  "updatedDate");
+                "createdDate", "updatedDate");
     }
 
     @Test
-    void testFindById_incorrectId(){
+    void testFindById_incorrectId() {
         assertThrows(NotFoundException.class, () -> userRoleDao.findById("someRandomString"));
     }
 
     @Test
-    void testUpdate_successFlow(){
+    void testUpdate_successFlow() {
         // Initializing userRole
         UserRole updatedUserRole = new UserRole();
         updatedUserRole.setId(userRole.getId());
@@ -88,35 +88,38 @@ public class UserRoleDaoImplTest extends BaseDaoTest {
         updatedUserRole.setCreatedDate(userRole.getCreatedDate());
 
         // Testing
-        userRoleDao.update(updatedUserRole);
+        UserRole resultUserRole = userRoleDao.update(updatedUserRole);
 
         // Asserting results
+        assertSame(updatedUserRole, resultUserRole);
+
         UserRole userRoleFromDB = userRoleDao.findById(userRole.getId());
         assertThat(userRoleFromDB).isEqualToIgnoringGivenFields(updatedUserRole,
-                "createdDate",  "updatedDate");
+                "createdDate", "updatedDate");
     }
 
     @Test
-    void testUpdate_incorrectId(){
+    void testUpdate_incorrectId() {
         userRole.setId("someRandomString");
         assertThrows(NotFoundException.class, () -> userRoleDao.update(userRole));
     }
 
     @Test
-    void testUpdate_omittedNotNullFields(){
+    void testUpdate_omittedNotNullFields() {
         UserRole emptyUserRole = new UserRole();
         emptyUserRole.setId(userRole.getId());
         assertThrows(DbException.class, () -> userRoleDao.update(emptyUserRole));
     }
 
     @Test
-    void testDelete_successFlow(){
+    void testDelete_successFlow() {
         assertTrue(userRoleDao.delete(userRole.getId()));
         assertThrows(NotFoundException.class, () -> userRoleDao.findById(userRole.getId()));
     }
+
     @Test
     void testDelete_incorrectId() {
-        // Deleting not existing user from db
+        // Deleting not existing userRole from db
         assertThrows(NotFoundException.class, () -> userRoleDao.delete("randomString"));
     }
 

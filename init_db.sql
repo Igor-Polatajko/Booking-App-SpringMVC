@@ -25,3 +25,25 @@ USE `booking_app`;
   PRIMARY KEY (`id`),
   UNIQUE INDEX `name_UNIQUE` (`name` ASC));
 
+-- Initializing Reservations table
+  CREATE TABLE IF NOT EXISTS `Reservations` (
+  `id` VARCHAR(45) NOT NULL,
+  `property_id` VARCHAR(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL,
+  `check_in_date` DATE NOT NULL,
+  `check_out_date` DATE NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  `updated_date` DATETIME NOT NULL,
+  PRIMARY KEY (`id`));
+
+-- Initializing Properties table
+
+  CREATE TABLE IF NOT EXISTS `Properties` (
+  `id` VARCHAR(45) NOT NULL,
+  `owner_id` VARCHAR(45) NOT NULL,
+  `location` VARCHAR(90) NOT NULL,
+  `description` VARCHAR(1000) NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `created_date` DATETIME NOT NULL,
+  `updated_date` DATETIME NOT NULL,
+  PRIMARY KEY (`id`));

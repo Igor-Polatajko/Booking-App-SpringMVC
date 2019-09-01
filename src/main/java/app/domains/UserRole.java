@@ -3,6 +3,7 @@ package app.domains;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 public class UserRole {
     private String id;
@@ -42,5 +43,21 @@ public class UserRole {
 
     public void setUpdatedDate(LocalDateTime updatedDate) {
         this.updatedDate = updatedDate;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UserRole userRole = (UserRole) o;
+        return Objects.equals(id, userRole.id) &&
+                Objects.equals(name, userRole.name) &&
+                Objects.equals(createdDate, userRole.createdDate) &&
+                Objects.equals(updatedDate, userRole.updatedDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, createdDate, updatedDate);
     }
 }

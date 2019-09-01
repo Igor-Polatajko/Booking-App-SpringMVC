@@ -130,12 +130,12 @@ public class UserDaoImpl implements UserDao {
             logger.warn("Exception while deleting user by id = {}. Message: {}.", id, e.getMessage());
             throw new DbException("Delete user exception");
         }
+
         if (rowsAffected < 1) {
             throw getAndLogUserNotFoundException(id);
         }
-        else {
-            return true;
-        }
+
+        return true;
     }
 
     private NotFoundException getAndLogUserNotFoundException(String id) {

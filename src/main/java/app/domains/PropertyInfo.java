@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Property {
+public class PropertyInfo {
     private String id;
     private String ownerId;
     private String location;
@@ -76,14 +76,14 @@ public class Property {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Property property = (Property) o;
-        return Objects.equals(id, property.id) &&
-                Objects.equals(ownerId, property.ownerId) &&
-                Objects.equals(location, property.location) &&
-                Objects.equals(description, property.description) &&
-                Objects.equals(name, property.name) &&
-                Objects.equals(createdDate, property.createdDate) &&
-                Objects.equals(updatedDate, property.updatedDate);
+        PropertyInfo propertyInfo = (PropertyInfo) o;
+        return Objects.equals(id, propertyInfo.id) &&
+                Objects.equals(ownerId, propertyInfo.ownerId) &&
+                Objects.equals(location, propertyInfo.location) &&
+                Objects.equals(description, propertyInfo.description) &&
+                Objects.equals(name, propertyInfo.name) &&
+                Objects.equals(createdDate, propertyInfo.createdDate) &&
+                Objects.equals(updatedDate, propertyInfo.updatedDate);
     }
 
     @Override

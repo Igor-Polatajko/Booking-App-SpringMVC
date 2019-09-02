@@ -2,14 +2,6 @@ package app.daos;
 
 import app.domains.User;
 
-public interface UserDao {
-    User create(User user);
-
-    User findById(String id);
-
+public interface UserDao extends CrudDao<User> {
     User findByEmail(String email);
-
-    User update(User user);
-
-    boolean delete(String id);
 }

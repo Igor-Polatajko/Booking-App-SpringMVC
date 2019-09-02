@@ -2,12 +2,6 @@ package app.daos;
 
 import app.domains.UserRole;
 
-public interface UserRoleDao {
-    UserRole create(UserRole userRole);
+public interface UserRoleDao extends CrudDao<UserRole> {
 
-    UserRole findById(String id);
-
-    UserRole update(UserRole userRole);
-
-    boolean delete(String id);
 }

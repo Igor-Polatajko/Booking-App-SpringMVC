@@ -36,9 +36,8 @@ USE `booking_app`;
   `updated_date` DATETIME NOT NULL,
   PRIMARY KEY (`id`));
 
--- Initializing Properties table
-
-  CREATE TABLE IF NOT EXISTS `Properties` (
+-- Initializing Property_infos table
+  CREATE TABLE IF NOT EXISTS `Property_infos` (
   `id` VARCHAR(45) NOT NULL,
   `owner_id` VARCHAR(45) NOT NULL,
   `location` VARCHAR(90) NOT NULL,

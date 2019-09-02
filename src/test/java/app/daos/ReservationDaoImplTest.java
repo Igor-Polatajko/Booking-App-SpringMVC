@@ -36,7 +36,7 @@ class ReservationDaoImplTest extends BaseDaoTest {
 
     @AfterEach
     void tearDown() {
-        clearTables("Reservations", "Users", "Properties");
+        clearTables("Reservations", "Users", "Property_infos");
     }
 
     @Test
@@ -132,7 +132,7 @@ class ReservationDaoImplTest extends BaseDaoTest {
                 "'1234', 'Sonmez', 'John', '0955456465', 1, '2002-09-24-06:00', '2002-09-24-06:00');");
 
         // insert property
-        template.update("INSERT INTO Properties(id, owner_id, location, description, name, created_date," +
+        template.update("INSERT INTO Property_infos(id, owner_id, location, description, name, created_date," +
                 " updated_date) VALUES ('" + propertyId + "', 'owner_id', 'somewhere', 'pretty good house', 'house', " +
                 "'2002-09-24-06:00', '2002-09-24-06:00');");
     }
